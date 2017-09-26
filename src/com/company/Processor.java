@@ -16,6 +16,13 @@ public class Processor {
 
     public static void main(String args[]) {
         Processor processor = new Processor();
-        processor.processWorkOrders();
+        while (processor == processor) {
+            try {
+                processor.processWorkOrders();
+                Thread.sleep(5000l);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
