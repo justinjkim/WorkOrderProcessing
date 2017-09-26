@@ -20,10 +20,10 @@ public class Creator {
         workOrder.setStatus(Status.INITIAL);
         workOrder.setId(workID);
 
-        workID++;
-
         ObjectMapper map = new ObjectMapper();
         map.writeValue(new File(workID + ".json"), workOrder);
+
+        workID++;
     }
 
     public static void main(String args[]) throws IOException {
