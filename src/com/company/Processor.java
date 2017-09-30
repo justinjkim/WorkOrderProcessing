@@ -1,5 +1,6 @@
 package com.company;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -26,7 +27,6 @@ public class Processor {
                         currentSet.remove(workorder);
                         workorder.setStatus(Status.DONE);
                         workMap.get(Status.DONE).add(workorder);
-
                     }
                     break;
                 case "ASSIGNED":
@@ -43,13 +43,24 @@ public class Processor {
                         workMap.get(Status.ASSIGNED).add(workorder);
                     }
                     break;
-            }
-        }
+            } // end of switch statement
+        } // end of for loop
         System.out.println(workMap);
-    }
+    } // end of moveIt method
 
     private void readIt() {
         // read the json files into WorkOrders and put in map
+        File currentDirectory = new File(".");
+        File files[] = currentDirectory.listFiles();
+        for (File f : files) {
+            if (f.getName().endsWith(".json")) {
+                // f is a reference to a json file
+
+                // f.delete(); will delete the file
+            }
+        }
+
+
     }
 
     public static void main(String args[]) {
