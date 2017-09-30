@@ -7,11 +7,15 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Creator {
+    private int workID = 1;
+
     public void createWorkOrders() throws IOException {
         // read input, create work orders and write as json files
-        Scanner input = new Scanner(System.in);
         WorkOrder workOrder = new WorkOrder();
-        int workID = 1;
+
+        Scanner input = new Scanner(System.in);
+
+
 
         System.out.println("Name: ");
         workOrder.setSenderName(input.nextLine());
@@ -32,6 +36,8 @@ public class Creator {
 
     public static void main(String args[]) throws IOException {
         Creator creator = new Creator();
+        creator.createWorkOrders();
+        creator.createWorkOrders();
         creator.createWorkOrders();
     }
 }
