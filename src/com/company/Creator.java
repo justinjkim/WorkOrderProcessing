@@ -23,6 +23,10 @@ public class Creator {
         ObjectMapper map = new ObjectMapper();
         map.writeValue(new File(workID + ".json"), workOrder);
 
+        // test and see if JSON is extracted
+//        String json = map.writeValueAsString(workOrder);
+//        System.out.println(json);
+
         workID++;
     }
 
