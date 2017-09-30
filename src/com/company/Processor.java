@@ -21,7 +21,6 @@ public class Processor {
             Set<WorkOrder> currentSet = workMap.get(status);
             switch(status.toString()) {
                 case "IN_PROGRESS":
-
                     // iterate thrr set of work orders under current status
                     for (WorkOrder workorder: currentSet) {
                         currentSet.remove(workorder);
@@ -29,15 +28,20 @@ public class Processor {
                         workMap.get(Status.DONE).add(workorder);
 
                     }
-
-                    // for each work order
-                        // remove from current work order set
-                        // change status to next status
-                        // add to next work order set
-
-
-
-
+                    break;
+                case "ASSIGNED":
+                    for (WorkOrder workorder: currentSet) {
+                        currentSet.remove(workorder);
+                        workorder.setStatus(Status.INITIAL);
+                        workMap.get(Status.INITIAL).add(workorder);
+                    }
+                    break;
+                case "INITIAL":
+                    for (WorkOrder workorder: currentSet) {
+                        currentSet.remove(workorder);
+                        workorder.setStatus(Status.ASSIGNED);
+                        workMap.get(Status.ASSIGNED).add(workorder);
+                    }
                     break;
             }
         }
