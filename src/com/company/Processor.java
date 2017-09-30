@@ -1,6 +1,15 @@
 package com.company;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
 public class Processor {
+
+    Map<Status, Set<WorkOrder>> workMap = new HashMap<>();
+
+
+
     public void processWorkOrders() {
         moveIt();
         readIt();
