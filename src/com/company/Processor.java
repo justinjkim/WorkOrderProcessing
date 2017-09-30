@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -67,17 +68,26 @@ public class Processor {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                
+
                 // f.delete(); will delete the file
                 f.delete();
             }
         }
-
-
     }
 
     public static void main(String args[]) {
         Processor processor = new Processor();
+
+        Set<WorkOrder> initial = new HashSet<>();
+        Set<WorkOrder> assigned = new HashSet<>();
+        Set<WorkOrder> in_progress = new HashSet<>();
+        Set<WorkOrder> done = new HashSet<>();
+
+        workMap.put(Status.INITIAL, initial);
+        workMap.put(Status.ASSIGNED, assigned);
+        workMap.put(Status.IN_PROGRESS, in_progress);
+        workMap.put(Status.DONE, done);
+
         while (processor == processor) {
             try {
                 System.out.println(workMap);
