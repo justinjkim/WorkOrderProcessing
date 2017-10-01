@@ -22,33 +22,58 @@ public class Processor {
     private void moveIt() {
         // move work orders in map from one state to another
         System.out.println(workMap);
-        for (Status status: workMap.keySet()) {
-            Set<WorkOrder> currentSet = workMap.get(status);
-            switch(status.toString()) {
-                case "IN_PROGRESS":
-                    // iterate thrr set of work orders under current status
-                    for (WorkOrder workorder: currentSet) {
-                        currentSet.remove(workorder);
-                        workorder.setStatus(Status.DONE);
-                        workMap.get(Status.DONE).add(workorder);
-                    }
-                    break;
-                case "ASSIGNED":
-                    for (WorkOrder workorder: currentSet) {
-                        currentSet.remove(workorder);
-                        workorder.setStatus(Status.INITIAL);
-                        workMap.get(Status.INITIAL).add(workorder);
-                    }
-                    break;
-                case "INITIAL":
-                    for (WorkOrder workorder: currentSet) {
-                        currentSet.remove(workorder);
-                        workorder.setStatus(Status.ASSIGNED);
-                        workMap.get(Status.ASSIGNED).add(workorder);
-                    }
-                    break;
-            } // end of switch statement
-        } // end of for loop
+        
+        Set<WorkOrder> currentSet = workMap.get(Status.IN_PROGRESS);
+        for (WorkOrder workorder: currentSet) {
+            workorder.setStatus(Status.DONE);
+            workMap.get(Status.DONE).add(workorder);
+        }
+        workMap.put(Status.IN_PROGRESS, new HashSet<WorkOrder>());
+
+        currentSet = workMap.get(Status.ASSIGNED);
+        for (WorkOrder workorder: currentSet) {
+            workorder.setStatus(Status.IN_PROGRESS);
+            workMap.get(Status.IN_PROGRESS).add(workorder);
+        }
+        workMap.put(Status.ASSIGNED, new HashSet<WorkOrder>());
+
+        currentSet = workMap.get(Status.INITIAL);
+        for (WorkOrder workorder: currentSet) {
+            workorder.setStatus(Status.ASSIGNED);
+            workMap.get(Status.ASSIGNED).add(workorder);
+        }
+        workMap.put(Status.INITIAL, new HashSet<WorkOrder>());
+
+
+//        for (Status status: workMap.keySet()) {
+//            Set<WorkOrder> currentSet = workMap.get(status);
+//            switch(status.toString()) {
+//                case "IN_PROGRESS":
+//                    // iterate through set of work orders under current status
+//                    for (WorkOrder workorder: currentSet) {
+//                        workorder.setStatus(Status.DONE);
+//                        workMap.get(Status.DONE).add(workorder);
+//                    }
+//                    break;
+//                case "ASSIGNED":
+//                    for (WorkOrder workorder: currentSet) {
+//                        workorder.setStatus(Status.IN_PROGRESS);
+//                        workMap.get(Status.IN_PROGRESS).add(workorder);
+//                    }
+//                    break;
+//                case "INITIAL":
+//                    for (WorkOrder workorder: currentSet) {
+//                        workorder.setStatus(Status.ASSIGNED);
+//                        workMap.get(Status.ASSIGNED).add(workorder);
+//                    }
+//                    break;
+//            } // end of switch statement
+//
+//            // this overwrites the previously existing set in order to avoid the ConcurrentModificationException
+//            workMap.put(status, new HashSet<WorkOrder>());
+//        } // end of for loop
+
+
         System.out.println(workMap);
     } // end of moveIt method
 
@@ -90,9 +115,8 @@ public class Processor {
 
         while (processor == processor) {
             try {
-                System.out.println(workMap);
                 processor.processWorkOrders();
-                Thread.sleep(5000l);
+                Thread.sleep(3000l);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
