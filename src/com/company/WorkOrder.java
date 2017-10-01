@@ -41,11 +41,6 @@ public class WorkOrder {
 
     @Override
     public String toString() {
-        return "WorkOrder{" +
-                "id=" + id +
-                ", description='" + description + '\'' +
-                ", senderName='" + senderName + '\'' +
-                ", status=" + status +
-                '}';
+        return "description=" + description ;
     }
 }
